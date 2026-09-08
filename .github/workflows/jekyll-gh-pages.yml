@@ -1,51 +1,319 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link:JavaScript class="js"></link:JavaScript>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ORÇAFEST - FastPeças Diadema</title>
+  <style>
+    :root {
+      --cinza: #ffffff;
+      --grafite: #ffffff;
+      --destaque: #ffa726;
+      --destaque-alt: #ffc107;
+      --bg: #ffffff;
+      --branco: #ffffff;
+    }
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: rgba rgba(0, 0, 0, 0);
+      color: rgb(0, 0, 0);
+    }
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    .container {
+      max-width: 410px;
+      margin: 32px auto 0 auto;
+      background:0 4px 32px rgba(0, 0, 0, 0);
+      border-radius: 12px;
+      box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0);
+      padding: 28px 21px 22px 21px;
+    }
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    h1 {
+      text-align: center;
+      color: var(--grafite);
+      margin-bottom: 4px;
+      font-size: 1.7rem;
+      letter-spacing: 0.03em;
+      font-weight: 700;
+    }
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    h2 {
+      text-align: center;
+      color: var(--destaque);
+      font-size: 1.08rem;
+      margin: 0 0 18px 0;
+      font-weight: 500;
+    }
 
-jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      margin-bottom: 18px;
+    }
 
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+    label {
+      font-size: 0.96rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      padding: 9px 11px;
+      font-size: 1rem;
+      border: 1.5px solid #bbb;
+      border-radius: 7px;
+      box-sizing: border-box;
+      background: #f8f9fa00;
+      transition: border 2s;
+    }
+
+    select:focus,
+    input[type="number"]:focus {
+      border: 1.8px solid var(--destaque);
+      outline: none;
+      background: #fff;
+    }
+
+    .resultado {
+      background: #f5f5f8;
+      padding: 15px 10px 10px 10px;
+      border-radius: 8px;
+      border: 1.2px solid var(--destaque);
+      margin-bottom: 13px;
+      font-size: 1.07rem;
+    }
+
+    .preco-unitario {
+      font-weight: 400;
+    }
+
+    .total {
+      font-size: 1.18rem;
+      color: var(--grafite);
+      font-weight: 700;
+    }
+
+    .aviso {
+      color: #888888;
+      font-size: 0.98rem;
+      margin-bottom: 15px;
+      margin-top: -8px;
+      text-align: center;
+    }
+
+    .whatsapp-btn {
+      display: block;
+      width: 100%;
+      background: var(--destaque);
+      color: var(--grafite);
+      font-size: 1.14rem;
+      font-weight: bold;
+      padding: 13px 0;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px #ffc107;
+      cursor: pointer;
+      transition: background 1s, box-shadow 2s;
+      text-align: center;
+      letter-spacing: 0.01em;
+      margin-top: 6px;
+    }
+    .whatsapp-btn:hover {
+      background: rgba(0, 0, 0, 0);
+      box-shadow: 0 2px 11px #ff4800;
+      color: #ff9900;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+        min-height: 100vh;
+        max-width: 100vw;
+        padding: 18px 5vw 14px 5vw;
+      }
+
+      h1 {
+        font-size: 1.14rem;
+        padding-top: 6px;
+      }
+      h2 {
+        font-size: 0.97rem;
+      }
+      .resultado {
+        font-size: 0.98rem;
+        padding: 10px 5px 8px 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ORÇAFAST</h1>
+    <h2>Usinagem CNC 5 eixos de alta precisão • Orçamento instantâneo</h2>
+    <form id="form-orcamento" autocomplete="off" onsubmit="return false;">
+      <div>
+        <label for="material">Material:</label>
+        <select id="material" name="material" required>
+          <option value="Alumínio">Alumínio</option>
+          <option value="Aço Carbono">Aço Carbono</option>
+          <option value="Aço Inox">Aço Inox</option>
+          <option value="Latão/Bronze">Latão/Bronze</option>
+        </select>
+      </div>
+      <div>
+        <label for="tamanho">Tamanho da peça (cm):</label>
+        <input type="number" id="tamanho" name="tamanho" min="1" max="999" step="1" value="10" required>
+      </div>
+      <div>
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" min="1" max="9999" step="1" value="50" required>
+      </div>
+    </form>
+
+    <div class="resultado" id="resultado">
+      <span class="preco-unitario">Preço unitário: <b>R$ 0,00</b></span><br>
+      <span>Subtotal: <span id="subtotal">R$ 0,00</span></span><br>
+      <span id="desconto-info"></span>
+      <span class="total">Total estimado: <span id="total">R$ 0,00</span></span>
+    </div>
+    <div class="aviso">
+      Valor estimado — orçamento final confirmado pela FastPeças.
+    </div>
+    <button class="whatsapp-btn" id="whatsapp-btn" style="display:none;">
+      Solicitar orçamento oficial no WhatsApp
+    </button>
+  </div>
+  <div class="aviso">
+    Desenvolvido por Darya & Diogo - v. 0.1
+  </div>
+  <script>
+    // ==============================
+    // VARIÁVEIS DE FÁCIL EDIÇÃO
+    // ==============================
+
+    // Preços por cm para cada material
+    const PRECO_MATERIAL_CM = {
+      "Alumínio": 0.50,
+      "Aço Carbono": 0.80,
+      "Aço Inox": 1.30,
+      "Latão/Bronze": 1.00
+    };
+
+    const CUSTO_FIXO_POR_PECA = 4.00;
+
+    const DESCONTOS_VOLUME = [
+      { min: 1, max: 50, desconto: 0 },      // 0% até 50
+      { min: 51, max: 100, desconto: 0.05 }, // 5% para 51-100
+      { min: 101, max: Infinity, desconto: 0.10 } //10% acima de 100
+    ];
+
+    const NUMERO_WHATSAPP = "5511999999999";
+    // ==============================
+    // ==============================
+
+    // Referências de elementos
+    const materialEl = document.getElementById('material');
+    const tamanhoEl = document.getElementById('tamanho');
+    const quantidadeEl = document.getElementById('quantidade');
+    const resultadoEl = document.getElementById('resultado');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+    const descontoInfoEl = document.getElementById('desconto-info');
+    const btnWhatsApp = document.getElementById('whatsapp-btn');
+
+    // Função para buscar desconto conforme quantidade
+    function buscarDesconto(quantidade) {
+      for (let i = 0; i < DESCONTOS_VOLUME.length; i++) {
+        const r = DESCONTOS_VOLUME[i];
+        if (quantidade >= r.min && quantidade <= r.max) {
+          return r.desconto;
+        }
+      }
+      return 0;
+    }
+
+    // Formata número para Real brasileiro
+    function formatarBRL(valor) {
+      return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
+    }
+
+    // Atualiza orçamentos em tempo real
+    function atualizarOrcamento() {
+      const material = materialEl.value;
+      let tamanho = Number(tamanhoEl.value);
+      let quantidade = Number(quantidadeEl.value);
+
+      // Sanitize
+      if (isNaN(tamanho) || tamanho < 1) tamanho = 1;
+      if (isNaN(quantidade) || quantidade < 1) quantidade = 1;
+
+      const precoMaterial = PRECO_MATERIAL_CM[material] || 0;
+      const precoUnitario = (tamanho * precoMaterial) + CUSTO_FIXO_POR_PECA;
+      const subtotal = precoUnitario * quantidade;
+      const desconto = buscarDesconto(quantidade);
+
+      const valorComDesconto = subtotal * (1 - desconto);
+
+      // Atualiza exibicao
+      resultadoEl.querySelector('.preco-unitario b').textContent = formatarBRL(precoUnitario);
+      subtotalEl.textContent = formatarBRL(subtotal);
+
+      let descontoText = '';
+      if (desconto > 0) {
+        descontoText = `Desconto por volume: <b>-${(desconto*100).toFixed(0)}%</b> <br>`;
+      }
+      descontoInfoEl.innerHTML = descontoText;
+
+      totalEl.textContent = formatarBRL(valorComDesconto);
+
+      // Mostra botão WhatsApp se quantidade >=1 e tamanho >=1
+      if (quantidade > 0 && tamanho > 0) {
+        btnWhatsApp.style.display = 'block';
+      } else {
+        btnWhatsApp.style.display = 'none';
+      }
+    }
+
+    // Monta mensagem WhatsApp
+    function montarMensagemWhatsApp() {
+      const material = materialEl.value;
+      const tamanho = tamanhoEl.value;
+      const quantidade = quantidadeEl.value;
+      const totalEstimado = document.getElementById('total').textContent;
+
+      return `Olá, gostaria de solicitar orçamento oficial para usinagem CNC:$0A- Material: ${material}$0A- Tamanho: ${tamanho} cm$0A- Quantidade: ${quantidade}$0A- Valor estimado: ${totalEstimado}$0A$0A(Aguardando confirmação final pela equipe FastPeças Diadema)`.replace(/\$0A/g, '\n');
+    }
+
+    // Evento de clique no botão WhatsApp
+    btnWhatsApp.addEventListener('click', function () {
+      const mensagem = montarMensagemWhatsApp();
+      const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    });
+
+    // Inputs: atualização em tempo real
+    [materialEl, tamanhoEl, quantidadeEl].forEach(el => {
+      el.addEventListener('input', atualizarOrcamento);
+    });
+
+    // Inicializa com valores padrão
+    atualizarOrcamento();
+  </script>
+</body>
+</html>7
+<style>
+.barreira-fosca {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+</style>
