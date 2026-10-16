@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ORÇAFAST: simulador de orçamento instantâneo de peças usinadas da FastPeças Diadema.">
+  <title>ORÇAFAST - FastPeças Diadema</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>ORÇAFAST</h1>
+    <h2>Usinagem CNC 5 eixos de alta precisão • Orçamento instantâneo</h2>
+    <form id="form-orcamento" autocomplete="off" onsubmit="return false;">
+      <div>
+        <label for="material">Material:</label>
+        <select id="material" name="material" required>
+          <option value="Alumínio">Alumínio</option>
+          <option value="Aço Carbono">Aço Carbono</option>
+          <option value="Aço Inox">Aço Inox</option>
+          <option value="Latão/Bronze">Latão/Bronze</option>
+        </select>
+      </div>
+      <div>
+        <label for="tamanho">Tamanho da peça (cm):</label>
+        <input type="number" id="tamanho" name="tamanho" min="1" max="999" step="1" value="10" required>
+      </div>
+      <div>
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" min="1" max="9999" step="1" value="50" required>
+      </div>
+    </form>
+
+    <div class="resultado" id="resultado">
+      <span class="preco-unitario">Preço unitário: <b>R$ 0,00</b></span><br>
+      <span>Subtotal: <span id="subtotal">R$ 0,00</span></span><br>
+      <span id="desconto-info"></span>
+      <span class="total">Total estimado: <span id="total">R$ 0,00</span></span>
+    </div>
+    <div class="aviso">
+      Valor estimado — orçamento final confirmado pela FastPeças.
+    </div>
+    <button type="button" class="whatsapp-btn" id="whatsapp-btn" style="display:none;">
+      Solicitar orçamento oficial no WhatsApp
+    </button>
+  </div>
+  <div class="aviso creditos">
+    Desenvolvido por Darya &amp; Diogo - v. 0.1
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
